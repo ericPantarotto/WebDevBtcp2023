@@ -1,0 +1,33 @@
+/* #hero {
+  background-image: url("../images/kelly-sikkema-medium.jpg");
+  height: 100vh;
+} */
+
+.main-color {
+  color: #ffd9b7 !important;
+}
+
+.alternative-color {
+  color: #7eaa92 !important;
+}
+
+.footer-color {
+  color: #9ed2be;
+}
+.icon-square {
+  border-radius: 1.5rem;
+}
+
+.view {
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-image: url("../images/kelly-sikkema-medium.jpg");
+}
+
+.gradient-background {
+  background: linear-gradient(300deg, #9ed2be, #7eaa92, #ffd9b7);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite;
+}

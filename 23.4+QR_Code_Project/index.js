@@ -14,10 +14,9 @@ import inquirer from "inquirer";
 import qr from "qr-image";
 
 // console.log(process.cwd());
-const result = findRemoveSync(
-  "./23.4 QR Code Project",
-  { extensions: [".png"] }
-);
+const result = findRemoveSync("./23.4+QR_Code_Project", {
+  extensions: [".png"],
+});
 console.log(result);
 
 const questions = [

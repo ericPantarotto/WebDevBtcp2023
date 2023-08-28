@@ -1,0 +1,25 @@
+<!-- Step 3 Add Header -->
+<%- include("partials/header.ejs") %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+<!-- Step 2 - If an adjective and noun are sent to this ejs file, 
+    Change the h1 to show the adjective and noun.
+    But when the user first goes on the website and there is no adjective and noun, 
+    Show the default h1 below -->  
+<% if (locals.randomName) { %>
+  <h1> <%= randomName %></h1>
+<% } else { %>
+  <h1>Welcome to the Band Generator 🤟</h1>
+<% } %>
+
+<form action="/submit" method="POST">
+  <input type="submit" value="Generate Name">
+</form>
+
+<script>
+  $("h1").hide().fadeIn(1000);
+</script>
+
+<!-- Step 3 Add Footer -->
+<%- include("partials/footer.ejs") %>

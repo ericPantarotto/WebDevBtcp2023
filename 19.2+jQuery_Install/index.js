@@ -19,6 +19,7 @@ console.log($("h1").css("color"));
 $("h1").addClass("big-title margin-50");
 // $("h1").removeClass("big-title");
 console.log($("h1").hasClass("big-title margin-50"));
+//HACK: you also have toggleClass(), http://api.jquery.com/toggleclass/
 
 //NOTE: manipulating text with jQuery
 $("h1").text("Bye");
@@ -49,6 +50,7 @@ $("body").keydown((e) => {
 
 $("h1").on("mouseover", () => {
   $("h1").css("color", "green");
+  //HACK: for multi properties: $("h1").css({"text-decoration": "line-through", "color": "green"}); 
 });
 
 //NOTE: Adding and Removing Elements with jQuery

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap"
+      rel="stylesheet"
+    />
+    <link href="./output.css" rel="stylesheet" />
+    <title>Currencies</title>
+  </head>
+  <body class="bg-gradient-to-b from-cyan-800 to-slate-800 min-h-screen py-5">
+    <form
+      id="latest_rates_form"
+      class="mx-auto w-full max-w-sm bg-white shadow rounded-md p-5 space-y-3 text-sm"
+      method="post"
+      action="/"
+    >
+      <div class="flex items-center justify-between space-x-5">
+        <label for="base_currency_input">Base currency:</label>
+        <input
+          type="text"
+          id="base_currency_input"
+          name="base_currency"
+          value="USD"
+          class="border-slate-300 border rounded-md py-2 px-4 text-sm"
+        />
+      </div>
+      <div class="flex items-center justify-between space-x-5">
+        <label for="currencies">Target currencies:</label>
+        <input
+          type="text"
+          id="currencies"
+          name="currencies"
+          value="EUR,CAD"
+          class="border-slate-300 border rounded-md py-2 px-4 text-sm"
+        />
+      </div>
+      <button
+        type="submit"
+        class="bg-transparent text-blue-700 font-semibold py-2 px-4 border border-blue-500 hover:border-transparent rounded relative block"
+      >
+        Get Latest Rates
+      </button>
+    </form>
+    <% if (locals.data) { %>
+    <div
+      id="latest_rates_display"
+      class="mx-auto my-5 w-full max-w-sm bg-white shadow rounded-md px-5 py-3 text-sm empty:hidden divide-y divide-dotted divide-slate-300"
+    >
+      <% locals.data.forEach(el => { %>
+      <div class="flex items-center justify-between py-2">
+        <strong><%= el.code %>:</strong>
+        <span><%= el.value %></span>
+      </div>
+      <% }); %>
+    </div>
+    <% } %>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "nativedrivermongodb",
+  "version": "1.0.0",
+  "description": "native driver with mongoDB nodejs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ecr",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^6.0.0"
+  }
+}

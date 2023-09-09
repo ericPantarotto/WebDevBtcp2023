@@ -1,0 +1,15 @@
+{
+  "name": "mongooseintro",
+  "version": "1.0.0",
+  "description": "mongoose introduction",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ecr",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^7.5.0"
+  }
+}

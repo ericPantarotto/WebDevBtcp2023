@@ -38,11 +38,19 @@ const listSchema = new mongoose.Schema({
 const List = mongoose.model("List", listSchema);
 
 //NOTE: Routes
+app.get("/favicon.ico", (req, res) => {
+  return "./images/dom-js.ico";
+});
 app.get("/", async function (req, res) {
   const day = date.getDate();
+  const existingLists = await List.find();
   await Item.find().then(function (foundItems) {
     // console.log(foundItems);
-    res.render("list", { listTitle: day, newListItems: foundItems });
+    res.render("list", {
+      listTitle: day,
+      newListItems: foundItems,
+      lists: existingLists,
+    });
   });
 });
 
@@ -76,12 +84,14 @@ app.post("/", async function (req, res) {
 
 app.get("/:customListName", async function (req, res) {
   const customListName = _.capitalize(req.params.customListName);
+  const existingLists = await List.find();
   await List.findOne({ name: customListName })
     .then((foundItem) => {
       if (foundItem) {
         res.render("list", {
           listTitle: customListName,
           newListItems: foundItem.items,
+          lists: existingLists,
         });
         // console.log("FOUND " + foundItem.name);
       } else {

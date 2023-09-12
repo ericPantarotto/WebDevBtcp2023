@@ -2,9 +2,12 @@ import bodyParser from "body-parser";
 import express from "express";
 // import { dirname } from "path";
 // const __dirname = dirname(fileURLToPath(import.meta.url));
+import * as fs from "fs";
 import _ from "lodash";
 import mongoose from "mongoose";
 import * as date from "./date.js";
+
+const atlasPwd = JSON.parse(fs.readFileSync("./secret.txt")).pwd;
 
 const app = express();
 
@@ -27,7 +30,12 @@ const itemsSchema = new mongoose.Schema({
 });
 const Item = mongoose.model("Item", itemsSchema);
 
-mongoose.connect("mongodb://localhost:27017/todolistDB");
+// HACK: LOCAL
+// mongoose.connect("mongodb://localhost:27017/todolistDB");
+// HACK: PRODUCTION
+mongoose.connect(
+  `mongodb+srv://ericpython1980:${atlasPwd}@cluster0.epkssdr.mongodb.net/todolistDB?retryWrites=true&w=majority`
+);
 dbHookup().catch(console.dir);
 
 const listSchema = new mongoose.Schema({

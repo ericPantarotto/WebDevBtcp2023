@@ -1,9 +1,8 @@
-import bcrypt from "bcrypt";
 import bodyParser from "body-parser";
 import "dotenv/config";
 import express from "express";
 import * as db from "./db.js";
-const saltRounds = 10;
+import md5 from "md5";
 
 const app = express();
 
@@ -25,12 +24,10 @@ app.get("/login", function (req, res) {
 app.get("/register", function (req, res) {
   res.render("register");
 });
-app.post("/register", async function (req, res) {
-  const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
-
+app.post("/register", function (req, res) {
   const newUser = new db.User({
     email: req.body.username,
-    password: hashPassword,
+    password: md5(req.body.password),
   });
 
   newUser
@@ -41,13 +38,15 @@ app.post("/register", async function (req, res) {
     });
 });
 
-app.post("/login", async function (req, res) {
+app.post("/login", function (req, res) {
   const userName = req.body.username;
   const password = req.body.password;
+  const hashedPassword = md5(password);
+
 
   db.User.findOne({ email: userName })
-    .then(async (found) => {
-      if (found && (await bcrypt.compare(password, found.password))) {
+    .then((found) => {
+      if (found && found.password === hashedPassword) {
         res.render("secrets");
       } else {
         res.redirect("/login");

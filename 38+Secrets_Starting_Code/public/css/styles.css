@@ -1,11 +1,16 @@
-
 body {
-  background-color: #E8ECEF;
+  background-color: #e8ecef;
+}
+
+ul {
+  list-style-type: none;
+  padding-right: 2rem;
+  text-align: right;
 }
 
 .centered {
-    padding-top: 200px;
-    text-align: center;
+  padding-top: 200px;
+  text-align: center;
 }
 
 .secret-text {

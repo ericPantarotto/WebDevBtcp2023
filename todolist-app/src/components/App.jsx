@@ -12,7 +12,7 @@ function App() {
     });
   }
   function onDelete(id) {
-    console.log(id);
+    // console.log(id);
     setItems((prevItems) => {
       return prevItems.filter((item, index) => {
         // console.log(item);

@@ -13,17 +13,17 @@ function App() {
 
   function addItem() {
     setItems((prevItems) => {
-      return [...prevItems, inputText];
+      return [...prevItems, { id: uuidv4(), text: inputText }];
     });
     setInputText("");
   }
   function onDelete(id) {
-    // console.log(id);
+    console.log(id);
     setItems((prevItems) => {
       return prevItems.filter((item, index) => {
-        console.log(item)
-        return index !== id;
-      })
+        // console.log(item);
+        return item.id !== id;
+      });
     });
   }
   return (
@@ -42,8 +42,8 @@ function App() {
           {items.map((todoItem, index) => (
             <ToDoItem
               key={index}
-              id={index}
-              text={todoItem}
+              id={todoItem.id}
+              text={todoItem.text}
               onChecked={onDelete}
             />
           ))}

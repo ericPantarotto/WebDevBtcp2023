@@ -19,16 +19,39 @@ db.connect();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.get("/", async (req, res) => {
+async function checkVisisted() {
   const result = await db.query("SELECT country_code FROM visited_countries");
-  let countriesFromDb = [];
-  result.rows.forEach((code) => countriesFromDb.push(code.country_code));
+
+  let countries = [];
+  result.rows.forEach((country) => {
+    countries.push(country.country_code);
+  });
+  return countries;
+}
+
+app.get("/", async (req, res) => {
+  const countries = await checkVisisted();
 
   res.render("index.ejs", {
-    countries: countriesFromDb,
-    total: countriesFromDb.length,
+    countries: countries,
+    total: countries.length,
   });
-  await db.end();
+});
+
+app.post("/add", async (req, res) => {
+  let input = req.body.country.trim().toLowerCase();
+  const countryFound = await db.query(
+    "SELECT country_code FROM countries WHERE LOWER(country_name) =$1",
+    [input]
+  );
+
+  if (countryFound.rowCount > 0) {
+    await db.query("INSERT INTO visited_countries(country_code) VALUES ($1)", [
+      countryFound.rows[0].country_code,
+    ]);
+
+    res.redirect("/");
+  }
 });
 
 app.listen(port, () => {

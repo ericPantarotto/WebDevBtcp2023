@@ -41,16 +41,35 @@ app.get("/", async (req, res) => {
 app.post("/add", async (req, res) => {
   let input = req.body.country.trim().toLowerCase();
   const countryFound = await db.query(
-    "SELECT country_code FROM countries WHERE LOWER(country_name) =$1",
+    "SELECT country_code FROM countries WHERE LOWER(country_name) LIKE '%' || $1 || '%'",
     [input]
   );
 
-  if (countryFound.rowCount > 0) {
-    await db.query("INSERT INTO visited_countries(country_code) VALUES ($1)", [
-      countryFound.rows[0].country_code,
-    ]);
+  if (countryFound.rowCount == 0) {
+    const countries = await checkVisisted();
 
-    res.redirect("/");
+    res.render("index.ejs", {
+      countries: countries,
+      total: countries.length,
+      error: "Country doesn't exist, try again.",
+    });
+  } else {
+    try {
+      await db.query(
+        "INSERT INTO visited_countries(country_code) VALUES ($1)",
+        [countryFound.rows[0].country_code]
+      );
+      res.redirect("/");
+    } catch (error) {
+      console.log(error);
+      const countries = await checkVisisted();
+
+      res.render("index.ejs", {
+        countries: countries,
+        total: countries.length,
+        error: "Country has already been added, try again.",
+      });
+    }
   }
 });
 
